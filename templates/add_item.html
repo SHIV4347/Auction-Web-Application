@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Add New Item</h1>
+<form action="/add_item" method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="item_name">Item Name</label>
+        <input type="text" class="form-control" id="item_name" name="item_name" required>
+    </div>
+    <div class="form-group">
+        <label for="age">Age</label>
+        <input type="number" class="form-control" id="age" name="age" required>
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" id="description" name="description" required></textarea>
+    </div>
+    <div class="form-group">
+        <label for="starting_price">Starting Price</label>
+        <input type="number" class="form-control" id="starting_price" name="starting_price" required>
+    </div>
+    <div class="form-group">
+        <label for="image">Item Image (optional)</label>
+        <input type="file" class="form-control-file" id="image" name="image">
+    </div>
+    <button type="submit" class="btn btn-primary">Add Item</button>
+</form>
+{% endblock %}

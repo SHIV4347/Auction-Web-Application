@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Profile: {{ user.name }}</h1>
+<p><strong>Email:</strong> {{ user.email }}</p>
+<p><strong>Mobile No.:</strong> {{ user.mobile_number }}</p>
+<p><strong>Address:</strong> {{ user.address }}</p>
+<hr/>
+<h2>Your Items</h2>
+<hr />
+{% if user_items %}
+    <ul class="list-group">
+        {% for item in user_items %}
+            <li class="list-group-item">
+                {{ item.item_name }} - Starting Price: ₹{{ item.starting_price }} 
+                {% if item.winner_name %} to {{ item.winner_name }} for ₹{{ item.sold_price }} {% endif %}
+                <form action="{{ url_for('end_auction', item_id=item['item_id']) }}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm float-right">End Auction</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You have not added any items yet.</p>
+{% endif %}
+
+<h2>Your Bids</h2>
+<hr />
+{% if user_bids %}
+    <ul class="list-group">
+        {% for bid in user_bids %}
+            <li class="list-group-item">
+                {{ bid.item_name }} - Bid Amount: ₹{{ bid.bid_amount }}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You have not placed any bids yet.</p>
+{% endif %}
+
+<h2>Your Won Items</h2>
+<hr />
+{% if user_wins %}
+    <ul class="list-group">
+        {% for win in user_wins %}
+            <li class="list-group-item">
+                {{ win.item_name }} Sld to you for ₹{{ win.sold_price }}! Congratulations..
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You have not won any items yet.</p>
+{% endif %}
+
+<a href="/add_item" class="btn btn-success mt-3">Add New Item</a>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Welcome to the Auction</h1>
+<hr />
+<div class="row">
+    {% for item in items %}
+    <div class="col-md-12 mb-4">
+        <div class="row border p-3">
+            <div class="col-md-4">
+                <img class="img-fluid" src="{{ url_for('static', filename=item.image_path) }}" alt="{{ item.item_name }}">
+            </div>
+            <div class="col-md-8">
+                <h5>{{ item.item_name }}</h5>
+                <p><strong>Description:</strong> {{ item.description }}</p>
+                <p><strong>Age:</strong> {{ item.age }}</p>
+                <p><strong>Starting Price:</strong> ₹{{ item.starting_price }}</p>
+                <p><strong>Owner:</strong> {{ item.owner_name }}</p>
+                <p><strong>Current Highest Bid:</strong> ₹{{ item.highest_bid | default(0) }} by {{ item.highest_bidder | default('No bids yet') }}</p>
+                
+                <h6>All Bids:</h6>
+                {% if item.item_id in bids %}
+                    <ul>
+                        {% for bid in bids[item.item_id] %}
+                            <li>₹{{ bid.bid_amount }} by {{ bid.bidder_name }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No bids yet.</p>
+                {% endif %}
+
+                <form action="/bid/{{ item.item_id }}" method="POST">
+                    <div class="form-group">
+                        <input type="number" name="bid_amount" class="form-control" placeholder="Enter your bid" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Place Bid</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
