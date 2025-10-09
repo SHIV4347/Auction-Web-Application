@@ -1,28 +1,48 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Add New Item</h1>
-<form action="/add_item" method="POST" enctype="multipart/form-data">
-    <div class="form-group">
-        <label for="item_name">Item Name</label>
-        <input type="text" class="form-control" id="item_name" name="item_name" required>
+<div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+        <div class="card shadow-lg border-0 rounded-4 p-4">
+            <h1 class="card-title text-center fw-bold text-primary mb-4">
+                <i class="bi bi-gavel me-2"></i>List a New Auction Item
+            </h1>
+            <form action="/add_item" method="POST" enctype="multipart/form-data">
+                
+                <div class="row g-3 mb-3">
+                    <div class="col-md-8">
+                        <label for="item_name" class="form-label fw-semibold">Item Name</label>
+                        <input type="text" class="form-control form-control-lg" id="item_name" name="item_name" placeholder="E.g., Antique Stone Ganesha" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="age" class="form-label fw-semibold">Age (Years)</label>
+                        <input type="number" class="form-control form-control-lg" id="age" name="age" min="1" placeholder="E.g., 150" required>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="description" class="form-label fw-semibold">Description</label>
+                    <textarea class="form-control" id="description" name="description" rows="4" placeholder="Describe the item's history, condition, and value." required></textarea>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="starting_price" class="form-label fw-semibold">Starting Price (₹)</label>
+                    <input type="number" class="form-control form-control-lg" id="starting_price" name="starting_price" min="1" step="1.00" placeholder="Minimum amount required to start bidding" required>
+                </div>
+                
+                <div class="mb-5 p-3 border rounded bg-light">
+                    <label for="image" class="form-label fw-semibold d-block">Item Image (optional)</label>
+                    <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                    <small class="text-muted">Upload a clear picture of your item.</small>
+                </div>
+                
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-lg fw-bold shadow-sm">
+                        <i class="bi bi-upload me-2"></i>Add Item to Auction
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="age">Age</label>
-        <input type="number" class="form-control" id="age" name="age" required>
-    </div>
-    <div class="form-group">
-        <label for="description">Description</label>
-        <textarea class="form-control" id="description" name="description" required></textarea>
-    </div>
-    <div class="form-group">
-        <label for="starting_price">Starting Price</label>
-        <input type="number" class="form-control" id="starting_price" name="starting_price" required>
-    </div>
-    <div class="form-group">
-        <label for="image">Item Image (optional)</label>
-        <input type="file" class="form-control-file" id="image" name="image">
-    </div>
-    <button type="submit" class="btn btn-primary">Add Item</button>
-</form>
+</div>
 {% endblock %}
