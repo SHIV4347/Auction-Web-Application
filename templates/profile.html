@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Profile: {{ user.name }}</h1>
-<p><strong>Email:</strong> {{ user.email }}</p>
-<p><strong>Mobile No.:</strong> {{ user.mobile_number }}</p>
-<p><strong>Address:</strong> {{ user.address }}</p>
+<h1>Profile: {{ user[1] }}</h1>
+<p><strong>Email:</strong> {{ user[2] }}</p>
+<p><strong>Mobile No.:</strong> {{ user[3] }}</p>
+<p><strong>Address:</strong> {{ user[4] }}</p>
 <hr/>
 <h2>Your Items</h2>
 <hr />
@@ -12,9 +12,9 @@
     <ul class="list-group">
         {% for item in user_items %}
             <li class="list-group-item">
-                {{ item.item_name }} - Starting Price: ₹{{ item.starting_price }} 
-                {% if item.winner_name %} to {{ item.winner_name }} for ₹{{ item.sold_price }} {% endif %}
-                <form action="{{ url_for('end_auction', item_id=item['item_id']) }}" method="POST" style="display:inline;">
+                {{ item[1] }} - Starting Price: ₹{{ item[2] }} 
+                {% if item[4] %} to {{ item[4] }} for ₹{{ item[3] }} {% endif %}
+                <form action="{{ url_for('end_auction', item_id=item[0]) }}" method="POST" style="display:inline;">
                     <button type="submit" class="btn btn-danger btn-sm float-right">End Auction</button>
                 </form>
             </li>
@@ -30,7 +30,7 @@
     <ul class="list-group">
         {% for bid in user_bids %}
             <li class="list-group-item">
-                {{ bid.item_name }} - Bid Amount: ₹{{ bid.bid_amount }}
+                {{ bid[1] }} - Bid Amount: ₹{{ bid[0] }}
             </li>
         {% endfor %}
     </ul>
@@ -44,7 +44,7 @@
     <ul class="list-group">
         {% for win in user_wins %}
             <li class="list-group-item">
-                {{ win.item_name }} Sld to you for ₹{{ win.sold_price }}! Congratulations..
+                {{ win[0] }} Sold to you for ₹{{ win[1] }}! Congratulations..
             </li>
         {% endfor %}
     </ul>
