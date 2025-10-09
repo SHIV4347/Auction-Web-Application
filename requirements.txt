@@ -1,4 +1,4 @@
-vFlask==3.1.2
+Flask==3.1.2
 python-dotenv==1.1.1
 psycopg2-binary==2.9.10
 Werkzeug==3.1.3
