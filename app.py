@@ -13,16 +13,19 @@ app.secret_key = os.environ.get('SECRET_KEY', 'dev_secret_key')
 
 
 
-# Database connection
+from psycopg2 import pool
+from urllib.parse import urlparse
+import os
+
+url = urlparse(os.environ['DATABASE_URL'])
+
 import os
 import psycopg2
-from urllib.parse import urlparse  # ✅ import urlparse
+from urllib.parse import urlparse
 
 def get_db_connection():
-    url = urlparse(os.environ['DATABASE_URL'])
-
     conn = psycopg2.connect(
-        dbname=url.path[1:],       # remove leading '/'
+        dbname=url.path[1:],
         user=url.username,
         password=url.password,
         host=url.hostname,
@@ -30,6 +33,7 @@ def get_db_connection():
         sslmode='require'
     )
     return conn
+
 
 # Set the upload folder
 UPLOAD_FOLDER = 'static/images'
